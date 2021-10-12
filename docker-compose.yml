@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  backend-test:
+    build:
+      context: backend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+      - ./.git:/app/.git
+    restart: "no"
+    stdin_open: true
+    tty: true
+    ports:
+      - "3001:3000"
+      #    environment:
+      #      - CHOKIDAR_USEPOLLING=true
+    command: npm run test:e2e
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+    restart: always
+    stdin_open: true
+    tty: true
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+#    environment:
+#      - CHOKIDAR_USEPOLLING=true
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=lInUx
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql

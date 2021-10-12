@@ -1,0 +1,14 @@
+{
+  "name": "DockerNestPostGres",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "typeorm:generate": "docker-compose run backend npm run typeorm migration:generate -- -n migrationNameHere -d src/migrations -o",
+    "typeorm:run": "docker-compose run backend npm run typeorm migration:run",
+    "typeorm:revert": "docker-compose run backend npm run typeorm migration:revert"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
