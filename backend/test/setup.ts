@@ -4,13 +4,13 @@ import config from '../ormconfig';
 
 let connection: Connection;
 global.beforeEach(async () => {
-    connection = await createConnection(config as AuroraDataApiConnectionOptions);
-    const entities = connection.entityMetadatas;
+  connection = await createConnection(config as AuroraDataApiConnectionOptions);
+  const entities = connection.entityMetadatas;
 
-    for (const entity of entities) {
-        const repository = connection.getRepository(entity.name);
-        await repository.delete({});
-    }
+  for (const entity of entities) {
+    const repository = connection.getRepository(entity.name);
+    await repository.delete({});
+  }
 
-    await connection.close();
+  await connection.close();
 });
