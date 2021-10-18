@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as Queue from 'bull';
-import { delay } from 'rxjs';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -22,7 +21,7 @@ async function bootstrap() {
         console.log(`${job.id} is finished, its data was ${res}`);
     });
 
-    queueWorker.add({data: 'push from main'}, { delay: 10000 });
+    queueWorker.add({ data: 'push from main' }, { delay: 10000 });
     console.log('queue-worker added');
 
     await app.listen(3000);

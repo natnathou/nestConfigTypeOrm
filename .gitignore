@@ -1,1 +1,3 @@
 /postgres-data/
+/worker/dist/
+/worker/node_modules/
