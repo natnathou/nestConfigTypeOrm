@@ -1,0 +1,8 @@
+FROM node:alpine
+WORKDIR '/app'
+RUN npm i -g cross-env
+RUN npm i -g typescript
+COPY package.json .
+RUN npm install
+COPY . .
+CMD ["cross-env", "NODE_ENV=dev", "npm", "run", "dev"]
